@@ -18,16 +18,11 @@ contract StudentRegistryV2 {
         _;
     }
 
-    modifier notRegistered() {
-        require(!students[msg.sender].isRegistered, "Already registered");
-        _;
-    }
-
     constructor() {
         owner = msg.sender;
     }
 
-    function registerStudent(address user, string calldata name, uint8 age) external onlyOwner notRegistered {
+    function register(address user, string calldata name, uint8 age) external onlyOwner {
         students[user] = Student(name, age, true);
         emit StudentRegistered(user, name, age);
     }
